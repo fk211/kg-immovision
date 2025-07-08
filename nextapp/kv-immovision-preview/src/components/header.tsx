@@ -13,9 +13,15 @@ interface HeaderProps {
 const Header = ({ onContactClick }: HeaderProps) => {
   const [atTop, setAtTop] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => setAtTop(window.scrollY < 50);
+    
+    // Set initial state
+    setAtTop(window.scrollY < 50);
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -42,6 +48,11 @@ const Header = ({ onContactClick }: HeaderProps) => {
     { href: '#team', label: 'Team' },
     { href: '#kontakt', label: 'Kontakt' }
   ];
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <>
