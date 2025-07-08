@@ -3,148 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KG Immovision - Legacy Properties</title>
-    
+    <title>KG Immovision - Finden Sie Ihr Vermächtnis</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --background: #F8F7F4; /* Leinen / Light Parchment */
-            --foreground: #1E1B18; /* Deep Charcoal */
+            --background: #F9F8F6;
+            --foreground: #1c1a19;
             --card: #FFFFFF;
-            --primary: #1E1B18;
-            --primary-foreground: #F8F7F4;
-            --muted-foreground: #5A5652;
-            --accent: #800020; /* Bordeaux / Oxblood Red */
-            --border: #EAE8E3;
+            --primary: #1c1a19;
+            --primary-foreground: #F9F8F6;
+            --muted: #73706d;
+            --accent: #A00028; /* Tieferes Bordeaux */
+            --border: #E8E5E1;
         }
 
-        body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWYmJilpaW8vLzDw8PS09PX19fBwcGjo6OgoKDDw8PGRkZGZmZRAAAAEXRSTlMAwR/M+wH4/eAnDQP5/v7+2wF/a3k5AAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1fBAMNAwg6G29/XmAAAAB5SURBVEjH7dYxDoAwDEPR5Ab1/S8cJA_BQuSo7wzCcgAAAADgH5GkR0l7fH9bS5y1sGSK2pS2A9b9g9pS2wFS2wHS2gHSwQHSFwHSRgHSMQHSMwHSJwHSEEBSUgFSUgFRSgVRLgFSlwFSlwFSlwFS1wFS1wFS1wFS1wFS1wFS1wHSOwAAAACAVw4G8AAAAGh6VFh0UmF3IHByb2ZpbGUgdHlwZSBpcHRjAAB4nOPyDAhxVigoyk/LzEnlUgADIwsuYwsTIxNLkxQDEyBEgDTDZAMjs1yMRIDEgDQNkeEYGaSCEZgFZCAG8flnVA0MLg0MAvIs88uTADs2wBgVAwAHmg14AAAAV3pUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHicPYlBDsIwEAT/Yl8xwSgEDC5aNVEiB2Kb3H8kFhG/l1v34d3lAX4MhGWIJa2isd2E5Kx9DKyYcWzFhI2LmViY+Tf4A4s5AExEJUIAxQ8k45u2yGZeDcm2GvdwPjDMgWdke1y4t+wLE3w4MvKMiI/x/F+Q/n2tD4d+gCs2fQDS0r8oAAAAAElFTkSuQmCC');
-            opacity: 0.03; pointer-events: none; z-index: -1;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-
-        body { font-family: 'Inter', sans-serif; background-color: var(--background); color: var(--foreground); }
+        
         .font-serif { font-family: 'Lora', serif; }
-        .text-muted { color: var(--muted-foreground); }
+        .text-muted { color: var(--muted); }
         .border-default { border-color: var(--border); }
         .bg-card { background-color: var(--card); }
         .text-accent { color: var(--accent); }
         .bg-accent { background-color: var(--accent); }
         .ring-accent { --tw-ring-color: var(--accent); }
 
-        .swiper-pagination-bullet { background: var(--foreground); opacity: 0.2; }
-        .swiper-pagination-bullet-active { background: var(--accent); opacity: 1; }
-        .property-card-swiper .swiper-button-next, .property-card-swiper .swiper-button-prev { color: white; transform: scale(0.7); }
+        /* Animation für das Erscheinen von Sektionen */
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Swiper Customization */
+        .property-card-swiper .swiper-button-next,
+        .property-card-swiper .swiper-button-prev {
+            color: white; background-color: rgba(0,0,0,0.3); width: 40px; height: 40px;
+            border-radius: 9999px; transform: scale(0.8); transition: all 0.2s ease-in-out;
+        }
+        .property-card-swiper:hover .swiper-button-next,
+        .property-card-swiper:hover .swiper-button-prev {
+             opacity: 1;
+        }
+        .property-card-swiper .swiper-button-next:hover,
+        .property-card-swiper .swiper-button-prev:hover {
+            background-color: var(--accent);
+        }
+        .property-card-swiper .swiper-button-next::after,
+        .property-card-swiper .swiper-button-prev::after {
+            font-size: 18px; font-weight: bold;
+        }
+        
+        [x-cloak] { display: none !important; }
     </style>
 </head>
-<body x-data="{ modalOpen: false }">
 
-    <header class="bg-background/80 backdrop-blur-lg sticky top-0 z-50 border-b border-default">
-        <div class="container mx-auto px-6 h-24 flex justify-between items-center">
-            <a href="#" class="text-2xl font-serif font-bold tracking-tight">KG Immovision</a>
+<body x-data="{ modalOpen: false }" class="text-foreground">
+
+    <header x-data="{ atTop: true }" @scroll.window="atTop = (window.scrollY < 50)"
+            class="sticky top-0 z-50 transition-all duration-300"
+            :class="{ 'bg-background/0 backdrop-blur-none': atTop, 'bg-background/80 backdrop-blur-xl border-b border-default shadow-sm': !atTop }">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-24 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif font-bold tracking-tight transition-colors duration-300" :class="{'text-white': atTop, 'text-foreground': !atTop}">KG Immovision</a>
             <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="#referenzen" class="text-muted hover:text-foreground transition-colors">Referenzen</a>
-                <a href="#leistungen" class="text-muted hover:text-foreground transition-colors">Leistungen</a>
-                <a href="#standorte" class="text-muted hover:text-foreground transition-colors">Standorte</a>
-                <a href="#team" class="text-muted hover:text-foreground transition-colors">Team</a>
+                <a href="#referenzen" class="transition-colors duration-300" :class="{'text-gray-200 hover:text-white': atTop, 'text-muted hover:text-foreground': !atTop}">Referenzen</a>
+                <a href="#leistungen" class="transition-colors duration-300" :class="{'text-gray-200 hover:text-white': atTop, 'text-muted hover:text-foreground': !atTop}">Leistungen</a>
+                <a href="#team" class="transition-colors duration-300" :class="{'text-gray-200 hover:text-white': atTop, 'text-muted hover:text-foreground': !atTop}">Unser Team</a>
+                <a href="#kontakt" class="transition-colors duration-300" :class="{'text-gray-200 hover:text-white': atTop, 'text-muted hover:text-foreground': !atTop}">Kontakt</a>
             </nav>
-            <button @click="modalOpen = true" class="hidden md:inline-flex items-center justify-center rounded-full text-sm font-semibold h-12 px-8 bg-primary text-primary-foreground hover:bg-black/80 transition-transform hover:scale-105">Kontakt</button>
+            <button @click="modalOpen = true" class="hidden md:inline-flex items-center justify-center rounded-full text-sm font-semibold h-12 px-8 transition-colors duration-300 transform hover:scale-105"
+                    :class="{'bg-white/90 text-primary hover:bg-white': atTop, 'bg-primary text-primary-foreground hover:bg-black/80': !atTop}">
+                <span>Gespräch anfragen</span>
+            </button>
+            <button class="md:hidden p-2" :class="{'text-white': atTop, 'text-foreground': !atTop}">
+                <i data-lucide="menu"></i>
+            </button>
         </div>
     </header>
 
     <main>
-        <section class="relative h-[90vh] min-h-[700px] w-full flex items-center">
+
+        <section class="relative h-screen min-h-[700px] w-full flex flex-col items-center justify-center">
             <div class="absolute inset-0 bg-black">
-                <video class="w-full h-full object-cover opacity-50" autoplay loop muted playsinline>
-                     <source src="images/1.jpg.mp4" type="video/mp4"> </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20"></div>
+                <video class="w-full h-full object-cover opacity-60" autoplay loop muted playsinline poster="images/1.jpg">
+                    <source src="images/1.jpg.mp4" type="video/mp4">
+                </video>
             </div>
-            <div class="relative container mx-auto px-6 text-white text-center z-10">
-                <h1 class="font-serif text-6xl md:text-8xl font-bold leading-tight tracking-tighter">Architektur als Kapital.</h1>
-                <p class="mt-4 text-xl text-gray-200 max-w-3xl mx-auto">Wir schaffen und vermitteln Immobilienwerte, die Generationen überdauern.</p>
-                <div class="mt-12 max-w-4xl mx-auto bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
-                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 items-center">
-                        <div class="col-span-1 lg:col-span-2">
-                             <input type="text" placeholder="z.B. Penthouse, München, Schwabing" class="w-full h-12 bg-transparent text-white placeholder-gray-300 px-4 focus:outline-none">
+            <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 text-white z-10 text-center flex flex-col items-center">
+                <h1 class="font-serif text-5xl md:text-7xl font-bold tracking-tighter">Finden Sie Ihr Vermächtnis.</h1>
+                <p class="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl">Exklusive Off-Market Immobilien für anspruchsvolle Visionen.</p>
+
+                <div x-data="{ searchType: 'kaufen' }" class="mt-12 w-full max-w-4xl bg-white/10 backdrop-blur-lg p-3 rounded-2xl border border-white/20">
+                    <div class="flex items-center">
+                        <div class="w-full grid grid-cols-1 md:grid-cols-12 gap-px">
+                            <div class="relative col-span-12 md:col-span-6 lg:col-span-5">
+                                <label for="location" class="absolute top-2 left-4 text-xs font-bold text-gray-300">Standort</label>
+                                <input type="text" id="location" placeholder="z.B. München, Bogenhausen" class="w-full h-16 bg-transparent text-white placeholder-gray-400 pl-4 pr-10 pt-6 rounded-l-lg focus:outline-none focus:bg-white/10 transition-colors">
+                                <i data-lucide="map-pin" class="absolute top-1/2 -translate-y-1/2 right-4 w-5 h-5 text-gray-300 pointer-events-none mt-2"></i>
+                            </div>
+                            <div class="relative col-span-6 md:col-span-3 lg:col-span-3">
+                                <label for="property-type" class="absolute top-2 left-4 text-xs font-bold text-gray-300">Immobilientyp</label>
+                                <select id="property-type" class="w-full h-16 bg-transparent text-white pl-4 pr-8 pt-6 appearance-none focus:outline-none cursor-pointer focus:bg-white/10 transition-colors">
+                                    <option class="text-black" value="all">Alle Typen</option>
+                                    <option class="text-black" value="villa">Villa</option>
+                                    <option class="text-black" value="penthouse">Penthouse</option>
+                                    <option class="text-black" value="wohnung">Wohnung</option>
+                                    <option class="text-black" value="grundstueck">Grundstück</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="absolute top-1/2 -translate-y-1/2 right-4 w-5 h-5 text-gray-300 pointer-events-none mt-2"></i>
+                            </div>
+                            <div class="relative col-span-6 md:col-span-3 lg:col-span-4">
+                                <label for="price" class="absolute top-2 left-4 text-xs font-bold text-gray-300">Preisklasse</label>
+                                <select id="price" class="w-full h-16 bg-transparent text-white pl-4 pr-8 pt-6 appearance-none focus:outline-none cursor-pointer focus:bg-white/10 transition-colors md:rounded-r-lg">
+                                    <option class="text-black" value="all">Jeder Preis</option>
+                                    <option class="text-black" value="1m-3m">€1M - €3M</option>
+                                    <option class="text-black" value="3m-5m">€3M - €5M</option>
+                                    <option class="text-black" value="5m-10m">€5M - €10M</option>
+                                    <option class="text-black" value="10m+">€10M+</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="absolute top-1/2 -translate-y-1/2 right-4 w-5 h-5 text-gray-300 pointer-events-none mt-2"></i>
+                            </div>
                         </div>
-                        <select class="h-12 bg-transparent text-white border-x border-white/20 px-4 focus:outline-none appearance-none">
-                            <option>Kaufen</option>
-                            <option>Mieten</option>
-                        </select>
-                        <button class="h-12 bg-accent text-white font-semibold rounded-lg hover:bg-red-900 transition-colors">Suchen</button>
+                         <button class="ml-2 h-16 w-20 flex-shrink-0 bg-accent text-white font-semibold rounded-lg hover:bg-red-900 transition-all duration-200 flex items-center justify-center">
+                            <i data-lucide="search" class="w-6 h-6"></i>
+                            <span class="sr-only">Suchen</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="py-20 md:py-32 bg-card border-y border-default">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-fade-in">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <div class="flex items-start gap-4">
+                        <div class="mt-1 flex-shrink-0 text-accent"><i data-lucide="shield-check" class="w-8 h-8"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg">Absolute Diskretion</h3>
+                            <p class="text-muted mt-1">Unser Off-Market-Ansatz garantiert maximale Vertraulichkeit bei allen Transaktionen.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="mt-1 flex-shrink-0 text-accent"><i data-lucide="bar-chart-big" class="w-8 h-8"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg">Daten-getriebene Analyse</h3>
+                            <p class="text-muted mt-1">Wir kombinieren Erfahrung mit modernster Marktdatenanalyse für fundierte Entscheidungen.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 lg:col-span-1 md:col-span-2">
+                        <div class="mt-1 flex-shrink-0 text-accent"><i data-lucide="globe" class="w-8 h-8"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg">Globales Netzwerk</h3>
+                            <p class="text-muted mt-1">Wir verbinden lokale Expertise mit einem internationalen Netzwerk aus Investoren und Partnern.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-20 md:py-32">
-             <div class="container mx-auto px-6">
-                 <div class="grid md:grid-cols-3 gap-12">
-                     <div class="flex items-start gap-4"><div class="text-accent mt-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h3 class="font-bold">Absolute Diskretion</h3><p class="text-muted text-sm">Unser Off-Market-Ansatz garantiert maximale Vertraulichkeit bei allen Transaktionen.</p></div></div>
-                     <div class="flex items-start gap-4"><div class="text-accent mt-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.76.77a5.4 5.4 0 0 0-7.65 0C3.46 6.47 3 7.85 3 9.24a5.4 5.4 0 0 0 4.58 5.18l.76.22a5.4 5.4 0 0 0 7.65 0l.76-.22a5.4 5.4 0 0 0 4.58-5.18c0-1.39-.46-2.77-1.58-3.66z"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div><div><h3 class="font-bold">Daten-getriebene Analyse</h3><p class="text-muted text-sm">Wir kombinieren jahrzehntelange Erfahrung mit modernster Marktdatenanalyse für fundierte Entscheidungen.</p></div></div>
-                     <div class="flex items-start gap-4"><div class="text-accent mt-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21a8 8 0 0 1 11.873-7.822"/><path d="M20.26 10.325A8 8 0 0 1 21.999 16l-1.954.514A6 6 0 0 0 15 12.3V12a6 6 0 0 0-1.127-3.469l-1.332-1.332a6 6 0 0 0-8.486 0L2 9.01V2"/></svg></div><div><h3 class="font-bold">Globales Netzwerk</h3><p class="text-muted text-sm">Wir verbinden lokale Expertise mit einem internationalen Netzwerk aus Investoren und Partnern.</p></div></div>
-                 </div>
-             </div>
-        </section>
-
-        <section id="referenzen" class="py-20 md:py-32 bg-card border-y border-default">
-            <div class="container mx-auto px-6">
+        <section id="referenzen" class="py-20 md:py-32">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-fade-in">
                 <div class="max-w-3xl">
-                    <h2 class="font-serif text-5xl font-bold tracking-tighter">Ausgewählte Referenzen</h2>
+                    <p class="font-semibold text-accent">Portfolio</p>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold tracking-tighter mt-2">Ausgewählte Referenzen</h2>
                     <p class="mt-4 text-lg text-muted">Eine Auswahl an Projekten, die unsere Kompetenz und unseren Qualitätsanspruch unterstreichen.</p>
                 </div>
                 <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-background rounded-2xl border border-default p-4 group">
+                    <div class="bg-card rounded-2xl border border-default p-4 group transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                         <div class="relative w-full h-96 rounded-xl overflow-hidden">
                             <div class="swiper property-card-swiper h-full">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide"><img src="images/2.jpg" class="w-full h-full object-cover"></div>
-                                    <div class="swiper-slide"><img src="images/3.jpg" class="w-full h-full object-cover"></div>
+                                    <div class="swiper-slide"><img src="images/2.jpg" class="w-full h-full object-cover" alt="Villa an der Isar"></div>
+                                    <div class="swiper-slide"><img src="images/3.jpg" class="w-full h-full object-cover" alt="Garten der Villa"></div>
                                 </div>
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             </div>
                         </div>
                         <div class="p-4">
                             <div class="flex justify-between items-center">
                                 <h3 class="text-2xl font-serif font-semibold">Villa an der Isar</h3>
-                                <div class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">Verkauft</div>
+                                <div class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1.5 rounded-full">Verkauft</div>
                             </div>
-                            <p class="text-muted mt-1">München, Bogenhausen</p>
-                            <div class="mt-4 flex gap-6 text-sm border-t border-default pt-4">
-                                <div class="flex items-center gap-2 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-4"/><path d="M12 17H8.5a3.5 3.5 0 1 1 0-7H12"/><path d="M12 17h3.5a3.5 3.5 0 1 0 0-7H12"/><path d="M12 17v-1.5a1.5 1.5 0 0 1-3 0V12m3 3.5v-1.5a1.5 1.5 0 0 0-3 0V12"/><path d="M2.5 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M21.5 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg> 8 Zimmer</div>
-                                <div class="flex items-center gap-2 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12a2 2 0 1 0-4 0 2 2 0 0 0 4 0z"/><path d="M20.2 16.2c.2-.3.2-.6 0-.8l-2-3-2-3c-.4-.5-1-.5-1.4 0s-.4 1.2 0 1.7l1.3 2-1.3 2c-.4.5-.4 1.2 0 1.7s1 .5 1.4 0l2-3 2-3z"/><path d="M3.8 16.2c-.2-.3-.2-.6 0-.8l2-3 2-3c.4-.5 1-.5 1.4 0s.4 1.2 0 1.7l-1.3 2 1.3 2c.4.5.4 1.2 0 1.7s-1 .5-1.4 0l-2-3-2-3z"/></svg> 450 m²</div>
+                            <p class="text-muted mt-1 flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i>München, Bogenhausen</p>
+                            <div class="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 text-sm border-t border-default pt-6">
+                                <div class="flex items-center gap-2 text-muted" title="Zimmer"><i data-lucide="bed-double" class="text-accent"></i> 8 Zimmer</div>
+                                <div class="flex items-center gap-2 text-muted" title="Wohnfläche"><i data-lucide="ruler" class="text-accent"></i> 450 m²</div>
+                                <div class="flex items-center gap-2 text-muted" title="Badezimmer"><i data-lucide="bath" class="text-accent"></i> 4 Bäder</div>
+                                <div class="flex items-center gap-2 text-muted" title="Grundstück"><i data-lucide="square-asterisk" class="text-accent"></i> 1.200 m²</div>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-background rounded-2xl border border-default p-4 group">
+                    <div class="bg-card rounded-2xl border border-default p-4 group transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                         <div class="relative w-full h-96 rounded-xl overflow-hidden">
                              <div class="swiper property-card-swiper h-full">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide"><img src="images/4.jpg" class="w-full h-full object-cover"></div>
-                                    <div class="swiper-slide"><img src="images/1.jpg" class="w-full h-full object-cover"></div>
+                                    <div class="swiper-slide"><img src="images/4.jpg" class="w-full h-full object-cover" alt="Penthouse Lehel"></div>
+                                    <div class="swiper-slide"><img src="images/1.jpg" class="w-full h-full object-cover" alt="Dachterrasse Penthouse"></div>
                                 </div>
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <div class="swiper-button-prev opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             </div>
                         </div>
                         <div class="p-4">
                             <div class="flex justify-between items-center">
-                                <h3 class="text-2xl font-serif font-semibold">Penthouse Lehel</h3>
-                                <div class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Im Angebot</div>
+                                <h3 class="text-2xl font-serif font-semibold">Penthouse im Lehel</h3>
+                                <div class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1.5 rounded-full">Im Angebot</div>
                             </div>
-                            <p class="text-muted mt-1">München, Lehel</p>
-                            <div class="mt-4 flex gap-6 text-sm border-t border-default pt-4">
-                                <div class="flex items-center gap-2 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-4"/><path d="M12 17H8.5a3.5 3.5 0 1 1 0-7H12"/><path d="M12 17h3.5a3.5 3.5 0 1 0 0-7H12"/><path d="M12 17v-1.5a1.5 1.5 0 0 1-3 0V12m3 3.5v-1.5a1.5 1.5 0 0 0-3 0V12"/><path d="M2.5 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M21.5 12a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg> 5 Zimmer</div>
-                                <div class="flex items-center gap-2 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12a2 2 0 1 0-4 0 2 2 0 0 0 4 0z"/><path d="M20.2 16.2c.2-.3.2-.6 0-.8l-2-3-2-3c-.4-.5-1-.5-1.4 0s-.4 1.2 0 1.7l1.3 2-1.3 2c-.4.5-.4 1.2 0 1.7s1 .5 1.4 0l2-3 2-3z"/><path d="M3.8 16.2c-.2-.3-.2-.6 0-.8l2-3 2-3c.4-.5 1-.5 1.4 0s.4 1.2 0 1.7l-1.3 2 1.3 2c.4.5.4 1.2 0 1.7s-1 .5-1.4 0l-2-3-2-3z"/></svg> 280 m²</div>
+                            <p class="text-muted mt-1 flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i>München, Lehel</p>
+                            <div class="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 text-sm border-t border-default pt-6">
+                                <div class="flex items-center gap-2 text-muted" title="Zimmer"><i data-lucide="bed-double" class="text-accent"></i> 5 Zimmer</div>
+                                <div class="flex items-center gap-2 text-muted" title="Wohnfläche"><i data-lucide="ruler" class="text-accent"></i> 280 m²</div>
+                                <div class="flex items-center gap-2 text-muted" title="Badezimmer"><i data-lucide="bath" class="text-accent"></i> 3 Bäder</div>
+                                <div class="flex items-center gap-2 text-muted" title="Stellplätze"><i data-lucide="car-port" class="text-accent"></i> 2 TG-Plätze</div>
                             </div>
                         </div>
                     </div>
@@ -152,75 +246,96 @@
             </div>
         </section>
 
-         <section id="team" class="py-20 md:py-32">
-            <div class="container mx-auto px-6">
+        <section id="leistungen" class="py-20 md:py-32 bg-card border-y border-default">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-fade-in">
                 <div class="text-center max-w-3xl mx-auto">
-                    <h2 class="font-serif text-5xl font-bold tracking-tighter">Ihre Ansprechpartner</h2>
-                    <p class="mt-4 text-lg text-muted">Die Köpfe hinter dem Erfolg. Engagiert, erfahren und exzellent vernetzt.</p>
+                    <p class="font-semibold text-accent">Leistungen</p>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold tracking-tighter mt-2">Unsere Expertise für Ihren Erfolg</h2>
+                    <p class="mt-4 text-lg text-muted">Wir bieten ein umfassendes Leistungsspektrum für anspruchsvolle Immobilienprojekte.</p>
                 </div>
-                <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="text-center group">
-                        <div class="relative w-48 h-48 rounded-full overflow-hidden mx-auto shadow-lg"><img src="images/4.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
-                        <h3 class="font-serif text-xl font-semibold mt-4">Clarissa König</h3><p class="text-muted">Gründerin & CEO</p>
-                    </div>
-                    <div class="text-center group">
-                        <div class="relative w-48 h-48 rounded-full overflow-hidden mx-auto shadow-lg"><img src="images/1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
-                        <h3 class="font-serif text-xl font-semibold mt-4">Valentin Gruber</h3><p class="text-muted">Gründer & Head of Sales</p>
-                    </div>
-                    <div class="text-center group">
-                        <div class="relative w-48 h-48 rounded-full overflow-hidden mx-auto shadow-lg"><img src="images/3.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
-                        <h3 class="font-serif text-xl font-semibold mt-4">Dr. Anja Schmidt</h3><p class="text-muted">Head of Legal & Finance</p>
-                    </div>
+                <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                     <div class="p-8 bg-background rounded-xl border border-default text-center transition hover:-translate-y-2 hover:shadow-lg"><i data-lucide="gem" class="mx-auto w-10 h-10 text-accent"></i><h3 class="font-semibold mt-4">Verkauf</h3><p class="text-muted text-sm mt-1">Diskrete Vermarktung exklusiver Immobilien an einen vorgemerkten Kundenkreis.</p></div>
+                    <div class="p-8 bg-background rounded-xl border border-default text-center transition hover:-translate-y-2 hover:shadow-lg"><i data-lucide="search" class="mx-auto w-10 h-10 text-accent"></i><h3 class="font-semibold mt-4">Ankauf</h3><p class="text-muted text-sm mt-1">Individuelle Suchmandate und Beratung für den Erwerb von Anlageobjekten.</p></div>
+                    <div class="p-8 bg-background rounded-xl border border-default text-center transition hover:-translate-y-2 hover:shadow-lg"><i data-lucide="bar-chart-3" class="mx-auto w-10 h-10 text-accent"></i><h3 class="font-semibold mt-4">Bewertung</h3><p class="text-muted text-sm mt-1">Fundierte, datengestützte Marktwertermittlung Ihrer Immobilie.</p></div>
+                    <div class="p-8 bg-background rounded-xl border border-default text-center transition hover:-translate-y-2 hover:shadow-lg"><i data-lucide="building-2" class="mx-auto w-10 h-10 text-accent"></i><h3 class="font-semibold mt-4">Entwicklung</h3><p class="text-muted text-sm mt-1">Konzeption und Begleitung von Neubau- und Sanierungsprojekten.</p></div>
                 </div>
             </div>
         </section>
         
-    </main>
-    
-    <footer id="kontakt" class="py-20 md:py-32 bg-card border-t border-default">
-         <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-12 gap-12">
-                <div class="lg:col-span-5">
-                    <h2 class="font-serif text-4xl font-bold tracking-tighter">Sprechen wir über Ihre Vision.</h2>
-                    <p class="mt-4 text-muted">Ob Sie verkaufen, kaufen oder entwickeln möchten – unser Team steht Ihnen für ein vertrauliches Erstgespräch zur Verfügung.</p>
+        <section id="team" class="py-20 md:py-32">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-fade-in">
+                <div class="text-center max-w-3xl mx-auto">
+                    <p class="font-semibold text-accent">Die Gründer</p>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold tracking-tighter mt-2">Die Köpfe hinter dem Erfolg</h2>
+                    <p class="mt-4 text-lg text-muted">Engagiert, erfahren und exzellent vernetzt – wir sind Ihre persönlichen Ansprechpartner.</p>
                 </div>
-                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                     <div><h4 class="font-semibold mb-4">Navigation</h4><ul class="space-y-2 text-sm"><a href="#referenzen" class="text-muted hover:text-foreground">Referenzen</a></li>...</ul></div>
-                     <div><h4 class="font-semibold mb-4">Rechtliches</h4><ul class="space-y-2 text-sm"><a href="#" class="text-muted hover:text-foreground">Impressum</a></li>...</ul></div>
-                     <div><h4 class="font-semibold mb-4">Social Media</h4><ul class="space-y-2 text-sm"><a href="#" class="text-muted hover:text-foreground">LinkedIn</a></li>...</ul></div>
+                <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
+                    <div class="text-center group">
+                        <div class="relative w-48 h-48 rounded-full overflow-hidden mx-auto shadow-lg border-4 border-card">
+                            <img src="images/clarissa.jpg" alt="Clarissa König" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="font-serif text-xl font-semibold mt-6">Clarissa König</h3>
+                        <p class="text-muted">Gründerin & CEO</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="relative w-48 h-48 rounded-full overflow-hidden mx-auto shadow-lg border-4 border-card">
+                            <img src="images/valentin.jpg" alt="Valentin Gruber" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="font-serif text-xl font-semibold mt-6">Valentin Gruber</h3>
+                        <p class="text-muted">Gründer & Head of Sales</p>
+                    </div>
                 </div>
             </div>
-            <div class="mt-16 pt-8 border-t border-default text-sm text-muted text-center"><p>&copy; 2025 KG Immovision AG. Alle Rechte vorbehalten.</p></div>
-        </div>
-    </footer>
+        </section>
 
-    <div x-show="modalOpen" x-trap.noscroll="modalOpen" @keydown.escape.window="modalOpen = false" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div x-show="modalOpen" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="modalOpen = false" class="fixed inset-0 bg-black/80 backdrop-blur-md"></div>
-        <div x-show="modalOpen" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="relative bg-card rounded-2xl w-full max-w-lg p-8 border border-default">
-             <div class="flex justify-between items-start">
-                <div><h2 class="text-2xl font-serif font-bold">Kontakt aufnehmen</h2><p class="mt-1 text-muted">Wir freuen uns auf Ihre Nachricht.</p></div>
-                <button @click="modalOpen = false" class="p-2 -mr-2 -mt-2 text-muted hover:text-foreground"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+        <section class="py-20 md:py-32 bg-card border-y border-default">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-fade-in">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold tracking-tighter">Schreiben wir Ihr nächstes Kapitel.</h2>
+                    <p class="mt-4 text-lg text-muted max-w-2xl mx-auto">Ob Sie verkaufen, kaufen oder entwickeln möchten – unser Team steht Ihnen für ein vertrauliches Erstgespräch zur Verfügung. Wir freuen uns darauf, Ihre Vision zu verstehen.</p>
+                     <div class="mt-10">
+                         <button @click="modalOpen = true" class="inline-flex items-center justify-center rounded-full text-base font-semibold h-14 px-10 bg-accent text-white hover:bg-red-900 transition-transform hover:scale-105 transform">
+                            <span>Kostenfreies Gespräch vereinbaren</span>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <form class="mt-6 space-y-4">
-                 <div><label for="name" class="block text-sm font-medium text-muted mb-1.5">Name</label><input type="text" id="name" class="w-full h-12 px-4 bg-background border-default border rounded-lg text-sm focus:ring-2 ring-accent outline-none transition-all"></div>
-                 <div><label for="email" class="block text-sm font-medium text-muted mb-1.5">E-Mail</label><input type="email" id="email" class="w-full h-12 px-4 bg-background border-default border rounded-lg text-sm focus:ring-2 ring-accent outline-none transition-all"></div>
-                <div class="pt-2"><button type="submit" class="w-full h-12 px-4 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-black/80">Anfrage senden</button></div>
-            </form>
+        </section>
+    </main>
+
+    <footer id="kontakt" class="py-20 md:py-24">
+        </footer>
+
+    <div x-show="modalOpen" x-trap.noscroll="modalOpen" @keydown.escape.window="modalOpen = false" x-cloak class="fixed inset-0 z-[99] flex items-center justify-center p-4">
         </div>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize all property card sliders
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            // Initialize Swiper Sliders
             document.querySelectorAll('.property-card-swiper').forEach(function(swiperElement) {
                 new Swiper(swiperElement, {
                     loop: true,
                     effect: 'fade',
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
+                    fadeEffect: { crossFade: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    autoplay: { delay: 5000, disableOnInteraction: true },
                 });
+            });
+
+            // Intersection Observer for fade-in animations
+            const sections = document.querySelectorAll('.section-fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => {
+                observer.observe(section);
             });
         });
     </script>
