@@ -66,7 +66,7 @@ const Header = ({ onContactClick }: HeaderProps) => {
         </div>
       )}
 
-      <header className={headerClasses} style={{ marginTop: atTop && window.innerWidth >= 640 ? '36px' : '0' }}>
+      <header className={headerClasses} style={{ marginTop: atTop ? '36px' : '0' }}>
         <div className="container mx-auto px-4 h-16 sm:h-20 flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className={logoClasses}>
