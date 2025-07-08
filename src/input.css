@@ -1,0 +1,53 @@
+/* src/input.css */
+
+/* --- ANFANG: Lokale Schriften definieren --- */
+
+/* Inter Normal */
+@font-face {
+  font-family: 'Inter';
+  font-style:  normal;
+  font-weight: 100 900; /* Definiert den gesamten Bereich für die variable Schrift */
+  font-display: swap;
+  src: url('./fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
+}
+
+/* Inter Italic */
+@font-face {
+  font-family: 'Inter';
+  font-style:  italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./fonts/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
+}
+
+/* Playfair Display Normal */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style:  normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('./fonts/PlayfairDisplay-VariableFont_wght.ttf') format('truetype-variations');
+}
+
+/* Playfair Display Italic */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style:  italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('./fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf') format('truetype-variations');
+}
+
+/* --- ENDE: Lokale Schriften definieren --- */
+
+
+/* Tailwind-Direktiven (diese waren schon da) */
+@import "tailwindcss";
+
+/* Eigene Basis-Styles (diese waren schon da) */
+@layer base {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

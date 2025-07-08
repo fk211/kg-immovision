@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KG Immovision AG - Ihr Partner für exklusive Immobilien</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom styles to extend Tailwind */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1));
+        }
+        .modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- =========== Header =========== -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold text-gray-900">KG Immovision AG</a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#referenzen" class="text-gray-600 hover:text-gray-900 transition-colors duration-200">Referenzen</a>
+                    <a href="#dienstleistungen" class="text-gray-600 hover:text-gray-900 transition-colors duration-200">Dienstleistungen</a>
+                    <a href="#ueber-uns" class="text-gray-600 hover:text-gray-900 transition-colors duration-200">Über Uns</a>
+                    <a href="#finanzierung" class="text-gray-600 hover:text-gray-900 transition-colors duration-200">Finanzierung</a>
+                </nav>
+                
+                <!-- CTA Button -->
+                <div>
+                    <button onclick="openModal()" class="hidden md:inline-block bg-gray-900 text-white font-semibold py-2 px-5 rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:scale-105">
+                        Kostenloses Erstgespräch
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden" id="mobile-menu-button">
+                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-2">
+            <a href="#referenzen" class="block text-gray-600 hover:text-gray-900">Referenzen</a>
+            <a href="#dienstleistungen" class="block text-gray-600 hover:text-gray-900">Dienstleistungen</a>
+            <a href="#ueber-uns" class="block text-gray-600 hover:text-gray-900">Über Uns</a>
+            <a href="#finanzierung" class="block text-gray-600 hover:text-gray-900">Finanzierung</a>
+            <button onclick="openModal()" class="w-full mt-4 bg-gray-900 text-white font-semibold py-2 px-5 rounded-lg hover:bg-gray-800 transition-all duration-300">
+                Kostenloses Erstgespräch
+            </button>
+        </div>
+    </header>
+
+    <!-- =========== Main Content =========== -->
+    <main>
+        <!-- =========== Hero Section =========== -->
+        <section class="relative h-[70vh] min-h-[500px] flex items-end text-white">
+            <div class="absolute inset-0">
+                <img src="https://placehold.co/1920x1080/334155/f8fafc?text=Moderne+Architektur" 
+                     alt="Moderne Architektur als Hintergrundbild" 
+                     class="w-full h-full object-cover">
+                <div class="absolute inset-0 hero-gradient"></div>
+            </div>
+            <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pb-20 text-center">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 drop-shadow-lg">Exklusivität. Vision. Vertrauen.</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 drop-shadow-md">Die KG Immovision AG verwandelt Ihre Immobilienträume in Realität. Entdecken Sie mit uns einzigartige Wohn- und Lebensräume.</p>
+                <button onclick="openModal()" class="bg-white text-gray-900 font-bold py-3 px-8 rounded-lg hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    Jetzt Beratung anfordern
+                </button>
+            </div>
+        </section>
+
+        <!-- =========== Referenzen Section =========== -->
+        <section id="referenzen" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Unsere Referenzobjekte</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Ein Einblick in erfolgreich realisierte Projekte, die für sich sprechen.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Property Card 1 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/e2e8f0/334155?text=Stadthaus+München" alt="Stadthaus in der Tengstraße" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">Exklusives Stadthaus</h3>
+                            <p class="text-gray-500 mb-4 flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                                München, Tengstraße
+                            </p>
+                            <p class="text-gray-700 mb-4">Ein Meisterwerk urbaner Architektur, das Luxus und zentrale Lage perfekt vereint.</p>
+                            <a href="#" class="font-semibold text-gray-900 hover:text-gray-700 transition-colors">Details ansehen &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Property Card 2 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/d1d5db/1f2937?text=Villa+in+den+Alpen" alt="Haus im Vorarlberg" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">Moderne Alpenvilla</h3>
+                             <p class="text-gray-500 mb-4 flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                                Vorarlberg, Österreich
+                            </p>
+                            <p class="text-gray-700 mb-4">Atemberaubende Ausblicke und hochwertiges Design in idyllischer Naturkulisse.</p>
+                            <a href="#" class="font-semibold text-gray-900 hover:text-gray-700 transition-colors">Details ansehen &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Property Card 3 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/9ca3af/111827?text=Design-Haus+Kufstein" alt="Haus in Kufstein" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">Design-Juwel Kufstein</h3>
+                             <p class="text-gray-500 mb-4 flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                                Kufstein, Österreich
+                            </p>
+                            <p class="text-gray-700 mb-4">Avantgardistische Architektur trifft auf traditionelle Materialien und schafft ein einzigartiges Wohnerlebnis.</p>
+                            <a href="#" class="font-semibold text-gray-900 hover:text-gray-700 transition-colors">Details ansehen &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== Dienstleistungen Section =========== -->
+        <section id="dienstleistungen" class="py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Unsere Kernkompetenzen</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Wir bieten einen umfassenden Service – von der ersten Idee bis zur finalen Übergabe.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <!-- Service 1: Verkauf -->
+                    <div class="p-8 bg-gray-50 rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300">
+                        <div class="inline-block bg-gray-900 text-white p-4 rounded-full mb-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Verkauf</h3>
+                        <p class="text-gray-600">Professionelle Vermarktung und ein strukturierter Verkaufsprozess für den bestmöglichen Preis Ihrer Immobilie.</p>
+                    </div>
+                     <!-- Service 2: Vermietung -->
+                    <div class="p-8 bg-gray-50 rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300">
+                        <div class="inline-block bg-gray-900 text-white p-4 rounded-full mb-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Vermietung</h3>
+                        <p class="text-gray-600">Sorgfältige Mieterauswahl und reibungslose Abwicklung für eine sichere und profitable Vermietung.</p>
+                    </div>
+                     <!-- Service 3: Projektierung -->
+                    <div class="p-8 bg-gray-50 rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300">
+                        <div class="inline-block bg-gray-900 text-white p-4 rounded-full mb-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2 1M4 7l2-1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Projektierung</h3>
+                        <p class="text-gray-600">Von der Vision zur Realität. Wir entwickeln und realisieren anspruchsvolle Immobilienprojekte mit starken Partnern.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== Über Uns Section =========== -->
+        <section id="ueber-uns" class="py-20 bg-gray-900 text-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6">Ihre Visionäre für Immobilien</h2>
+                        <p class="text-lg text-gray-300 mb-4">
+                            Hinter der KG Immovision AG stehen Clarissa und Valentin – zwei Köpfe mit einer gemeinsamen Leidenschaft für Architektur und Werte. Wir glauben, dass eine Immobilie mehr ist als nur vier Wände. Sie ist ein Lebensraum, ein Rückzugsort und eine Investition in die Zukunft.
+                        </p>
+                        <p class="text-lg text-gray-300">
+                            Mit einem Auge für Details, einem tiefen Marktverständnis und einem unerschütterlichen Engagement für die Ziele unserer Kunden, schaffen wir nachhaltige Werte und außergewöhnliche Ergebnisse.
+                        </p>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <img src="https://placehold.co/800x600/111827/e5e7eb?text=Clarissa+&+Valentin" 
+                             alt="Die Gründer: Clarissa und Valentin" 
+                             class="rounded-xl shadow-2xl w-full h-auto object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- =========== Finanzierung Section =========== -->
+        <section id="finanzierung" class="py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Solide Finanzierung als Fundament</h2>
+                    <p class="mt-4 text-lg text-gray-600">
+                        Eine durchdachte Finanzierung ist der Schlüssel zum Erfolg Ihres Immobilienvorhabens. Wir bieten Ihnen nicht nur erstklassige Objekte, sondern auch eine fundierte Beratung und Zugang zu einem Netzwerk von verlässlichen Finanzierungsexperten.
+                    </p>
+                    <div class="mt-10 p-8 bg-gray-50 rounded-xl flex flex-col sm:flex-row items-center gap-8 shadow-sm">
+                        <img src="https://placehold.co/150x150/e2e8f0/334155?text=Experte" alt="Finanzierungsexperte" class="w-24 h-24 rounded-full object-cover flex-shrink-0">
+                        <div>
+                            <p class="text-gray-800 text-left">"Mit jahrzehntelanger Erfahrung im Finanzsektor unterstütze ich Sie dabei, die optimale Finanzierungsstrategie für Ihre Traumimmobilie zu entwickeln. Lassen Sie uns gemeinsam Ihre Möglichkeiten ausloten."</p>
+                            <p class="text-right mt-4 font-bold text-gray-900">- Max Mustermann, Unabhängiger Finanzberater</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========== Footer =========== -->
+    <footer class="bg-gray-900 text-gray-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">KG Immovision AG</h3>
+                    <p>Ihr Partner für exklusive Immobilien im Herzen von München und darüber hinaus.</p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#referenzen" class="hover:text-white transition-colors">Referenzen</a></li>
+                        <li><a href="#dienstleistungen" class="hover:text-white transition-colors">Dienstleistungen</a></li>
+                        <li><a href="#ueber-uns" class="hover:text-white transition-colors">Über Uns</a></li>
+                        <li><a href="#finanzierung" class="hover:text-white transition-colors">Finanzierung</a></li>
+                    </ul>
+                </div>
+                <!-- Legal -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Rechtliches</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition-colors">Impressum</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Datenschutz</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">AGB</a></li>
+                    </ul>
+                </div>
+                <!-- Contact -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Kontakt</h3>
+                    <p>Musterstraße 123<br>80331 München<br>Deutschland</p>
+                    <p class="mt-2">info@kg-immovision.de</p>
+                </div>
+            </div>
+            <div class="mt-10 pt-8 border-t border-gray-700 text-center text-gray-500">
+                <p>&copy; 2024 KG Immovision AG. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- =========== Modal for "Kostenloses Erstgespräch" =========== -->
+    <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <!-- Backdrop -->
+        <div id="modal-backdrop" class="fixed inset-0 bg-black/60 modal-backdrop opacity-0" onclick="closeModal()"></div>
+        
+        <!-- Modal Content -->
+        <div id="modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-auto p-8 z-10 transform scale-95 opacity-0">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Ihr Weg zur Traumimmobilie</h2>
+                    <p class="mt-2 text-gray-600">Füllen Sie das Formular aus und wir melden uns für ein kostenloses und unverbindliches Erstgespräch.</p>
+                </div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-800 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <form class="mt-8 space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Vollständiger Name</label>
+                    <input type="text" id="name" class="mt-1 block w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:ring-gray-900 focus:border-gray-900 transition">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">E-Mail-Adresse</label>
+                    <input type="email" id="email" class="mt-1 block w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:ring-gray-900 focus:border-gray-900 transition">
+                </div>
+                 <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700">Telefonnummer (Optional)</label>
+                    <input type="tel" id="phone" class="mt-1 block w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:ring-gray-900 focus:border-gray-900 transition">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-700">Ihre Nachricht</label>
+                    <textarea id="message" rows="4" class="mt-1 block w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:ring-gray-900 focus:border-gray-900 transition" placeholder="Erzählen Sie uns kurz von Ihrem Anliegen..."></textarea>
+                </div>
+                <div>
+                    <button type="submit" class="w-full bg-gray-900 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
+                        Anfrage senden
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =========== JavaScript for Modals and Mobile Menu =========== -->
+    <script>
+        const modal = document.getElementById('contact-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalContent = document.getElementById('modal-content');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden'); // Prevent background scrolling
+            // Trigger transitions
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalContent.classList.remove('opacity-0', 'scale-95');
+                modalContent.classList.add('opacity-100', 'scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            // Trigger closing transitions
+            modalBackdrop.classList.add('opacity-0');
+            modalContent.classList.add('opacity-0', 'scale-95');
+            modalContent.classList.remove('opacity-100', 'scale-100');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }, 300); // Match transition duration
+        }
+        
+        // Close modal on Escape key press
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // Mobile menu toggle
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+    </script>
+</body>
+</html>
